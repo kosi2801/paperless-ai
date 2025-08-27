@@ -212,6 +212,7 @@ class CustomOpenAIService {
       };
 
       let jsonContent = response.choices[0].message.content;
+      jsonContent = jsonContent.replace(/<think(?:ing)?>\s*[\s\S]*?<\/think(?:ing)?>/gi, '');
       jsonContent = jsonContent.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
       let parsedResponse;
@@ -339,6 +340,7 @@ class CustomOpenAIService {
       };
 
       let jsonContent = response.choices[0].message.content;
+      jsonContent = jsonContent.replace(/<think(?:ing)?>\s*[\s\S]*?<\/think(?:ing)?>/gi, '');
       jsonContent = jsonContent.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
       let parsedResponse;
