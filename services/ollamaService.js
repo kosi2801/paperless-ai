@@ -184,7 +184,7 @@ class OllamaService {
     async analyzePlayground(content, prompt) {
         try {
             // Calculate context window size
-            const promptTokenCount = await calculateTokens(prompt);
+            const promptTokenCount = await calculateTokens(prompt + "\n\n" + content);
             const numCtx = this._calculateNumCtx(promptTokenCount, 1024);
 
             // Generate playground system prompt (simpler than full analysis)
