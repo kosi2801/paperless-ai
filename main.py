@@ -5,7 +5,7 @@ import hashlib
 import numpy as np
 import pickle
 from datetime import datetime
-from typing import List, Dict, Optional, Any, Union, Tuple
+from typing import List, Optional, Tuple
 import time
 import traceback
 
@@ -13,10 +13,9 @@ import requests
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from dotenv import load_dotenv
 from tqdm import tqdm
-import torch
 from sentence_transformers import SentenceTransformer, CrossEncoder
 import chromadb
 from chromadb.utils import embedding_functions
@@ -58,7 +57,7 @@ DOCUMENTS_FILE = "./data/documents.json"
 CHROMADB_DIR = "./data/chromadb"
 BM25_FILE = "./data/bm25_index.pkl"
 STATE_FILE = "./data/system_state.json"
-EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+EMBEDDING_MODEL_NAME = "Qwen/Qwen3-Embedding-0.6B" #"paraphrase-multilingual-MiniLM-L12-v2"
 CROSS_ENCODER_MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 COLLECTION_NAME = "documents"
 BM25_WEIGHT = 0.3
@@ -250,7 +249,11 @@ class DataManager:
         try:
             if self.sentence_transformer is None:
                 logger.info("Initializing sentence transformer model")
-                self.sentence_transformer = SentenceTransformer(EMBEDDING_MODEL_NAME)
+                self.sentence_transformer = SentenceTransformer(
+                    EMBEDDING_MODEL_NAME, 
+                    model_kwargs={"attn_implementation": "flash_attention_2", "device_map": "auto"}, #QWen specific recommended settings
+                    tokenizer_kwargs={"padding_side": "left"},
+                )
                 
             if self.embedding_function is None:
                 logger.info("Initializing embedding function")
