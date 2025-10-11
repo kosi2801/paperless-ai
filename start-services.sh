@@ -6,7 +6,7 @@ source /app/venv/bin/activate
 
 # Start the Python RAG service in the background
 echo "Starting Python RAG service..."
-python main.py --host 127.0.0.1 --port 8000 --initialize &
+python3 main.py --host 127.0.0.1 --port 8000 --initialize &
 PYTHON_PID=$!
 
 # Give it a moment to initialize
