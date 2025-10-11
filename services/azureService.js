@@ -178,7 +178,7 @@ class AzureOpenAIService {
             content: truncatedContent
           }
         ],
-        temperature: 0.3,
+        //temperature: 0.3,
       });
 
       if (!response?.choices?.[0]?.message?.content) {
@@ -302,7 +302,7 @@ class AzureOpenAIService {
             content: truncatedContent
           }
         ],
-        temperature: 0.3,
+        //temperature: 0.3,
       });
 
       // Handle response
@@ -375,7 +375,7 @@ class AzureOpenAIService {
             content: prompt
           }
         ],
-        temperature: 0.7,
+        //temperature: 0.7,
         max_tokens: 1000
       });
 
@@ -408,7 +408,7 @@ class AzureOpenAIService {
             content: "Test"
           }
         ],
-        temperature: 0.7,
+        //temperature: 0.7,
         max_tokens: 10
       });
 
@@ -441,7 +441,7 @@ class AzureOpenAIService {
             content: 'Ping'
           }
         ],
-        temperature: 0.7,
+        //temperature: 0.7,
         max_tokens: 1000
       });
 
