@@ -7,6 +7,7 @@ numpy>=1.24.3
 # Use CPU-only PyTorch to reduce image size by ~2-3 GB
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch>=2.0.0
+accelerate>=1.11.0
 
 sentence-transformers>=2.7.0
 chromadb>=0.3.21
