@@ -1,7 +1,7 @@
 services:
   paperless-ai:
     image: kosi2801/paperless-ai
-    container_name: paperless-ai
+    container_name: paperless-ai-kosi2801
     network_mode: bridge
     restart: unless-stopped
     cap_drop:
