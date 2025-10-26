@@ -259,7 +259,8 @@ class DataManager:
             if self.embedding_function is None:
                 logger.info("Initializing embedding function")
                 self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
-                    model_name=EMBEDDING_MODEL_NAME
+                    model_name=EMBEDDING_MODEL_NAME,
+                    model_kwargs={"device_map": "auto", "dtype": "auto"} #QWen specific recommended settings                    
                 )
                 
             if self.cross_encoder is None:
