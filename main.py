@@ -252,8 +252,8 @@ class DataManager:
                 self.sentence_transformer = SentenceTransformer(
                     EMBEDDING_MODEL_NAME, 
 #                    model_kwargs={"attn_implementation": "flash_attention_2", "device_map": "auto"}, #QWen specific recommended settings
-                    model_kwargs={"device_map": "auto"}, #QWen specific recommended settings
-                    tokenizer_kwargs={"padding_side": "left"},
+                    model_kwargs={"device_map": "auto", "torch_dtype": "auto"}, #QWen specific recommended settings
+                    tokenizer_kwargs={"padding_side": "left"}
                 )
                 
             if self.embedding_function is None:
