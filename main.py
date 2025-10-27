@@ -8,6 +8,7 @@ from datetime import datetime
 from typing import List, Optional, Tuple
 import time
 import traceback
+import multiprocessing
 
 import requests
 import uvicorn
@@ -626,7 +627,14 @@ class DataManager:
             logger.info(f"Creating new ChromaDB collection '{COLLECTION_NAME}'")
             collection = self.chroma_client.create_collection(
                 name=COLLECTION_NAME,
-                embedding_function=self.embedding_function
+                embedding_function=self.embedding_function,
+                configuration={
+                    "hnsw": {
+                        "num_threads": multiprocessing.cpu_count() - 2, # reduce system load for RPi
+                        "batch_size": 10, 
+                        "sync_threshold": 10
+                    }
+                }
             )
             
             # Load documents if not already loaded
@@ -659,7 +667,7 @@ class DataManager:
     def _add_documents_to_chroma(self, collection, documents):
         """Add documents to ChromaDB collection"""
         # We process in batches to avoid memory issues
-        batch_size = 100
+        batch_size = 10
         total_docs = len(documents)
         
         for i in range(0, total_docs, batch_size):
