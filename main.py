@@ -8,6 +8,7 @@ from datetime import datetime
 from typing import List, Optional, Tuple
 import time
 import traceback
+import multiprocessing
 
 import requests
 import uvicorn
