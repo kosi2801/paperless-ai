@@ -574,14 +574,7 @@ class DataManager:
                 try:
                     collection = self.chroma_client.get_collection(
                         name=COLLECTION_NAME, 
-                        embedding_function=self.embedding_function,
-                        configuration={
-                            "hnsw": {
-                                "num_threads": multiprocessing.cpu_count() - 2, # reduce system load for RPi
-                                "batch_size": 10, 
-                                "sync_threshold": 10
-                            }
-                        }
+                        embedding_function=self.embedding_function
                     )
                     logger.info(f"Loaded existing ChromaDB collection '{COLLECTION_NAME}'")
                     
