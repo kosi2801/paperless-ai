@@ -626,7 +626,13 @@ class DataManager:
             logger.info(f"Creating new ChromaDB collection '{COLLECTION_NAME}'")
             collection = self.chroma_client.create_collection(
                 name=COLLECTION_NAME,
-                embedding_function=self.embedding_function
+                embedding_function=self.embedding_function,
+                configuration={
+                    "hnsw": {
+                        "num_threads": multiprocessing.cpu_count() - 2, # reduce system load for RPi
+                        "batch_size": 10, 
+                        "sync_threshold": 10
+                    }
             )
             
             # Load documents if not already loaded
