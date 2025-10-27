@@ -633,6 +633,7 @@ class DataManager:
                         "batch_size": 10, 
                         "sync_threshold": 10
                     }
+                }
             )
             
             # Load documents if not already loaded
